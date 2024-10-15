@@ -29,9 +29,30 @@
 		525B87582CBEEBF500A919EC /* PeopleProjectUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PeopleProjectUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		525B87902CBEF84000A919EC /* Exceptions for "PeopleProject" folder in "PeopleProjectTests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Resources/Symbols.swift,
+			);
+			target = 525B874D2CBEEBF500A919EC /* PeopleProjectTests */;
+		};
+		525B87912CBEF84000A919EC /* Exceptions for "PeopleProject" folder in "PeopleProjectUITests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Resources/Symbols.swift,
+			);
+			target = 525B87572CBEEBF500A919EC /* PeopleProjectUITests */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		525B87402CBEEBF200A919EC /* PeopleProject */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				525B87902CBEF84000A919EC /* Exceptions for "PeopleProject" folder in "PeopleProjectTests" target */,
+				525B87912CBEF84000A919EC /* Exceptions for "PeopleProject" folder in "PeopleProjectUITests" target */,
+			);
 			path = PeopleProject;
 			sourceTree = "<group>";
 		};
