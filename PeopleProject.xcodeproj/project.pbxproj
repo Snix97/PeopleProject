@@ -46,12 +46,20 @@
 			);
 			target = 525B87572CBEEBF500A919EC /* PeopleProjectUITests */;
 		};
+		525B87A82CBF0B2800A919EC /* Exceptions for "PeopleProject" folder in "PeopleProject" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 525B873D2CBEEBF200A919EC /* PeopleProject */;
+		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		525B87402CBEEBF200A919EC /* PeopleProject */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
+				525B87A82CBF0B2800A919EC /* Exceptions for "PeopleProject" folder in "PeopleProject" target */,
 				525B87902CBEF84000A919EC /* Exceptions for "PeopleProject" folder in "PeopleProjectTests" target */,
 				525B87912CBEF84000A919EC /* Exceptions for "PeopleProject" folder in "PeopleProjectUITests" target */,
 			);
@@ -422,9 +430,9 @@
 				DEVELOPMENT_TEAM = HN55VQ5D69;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = PeopleProject/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -451,9 +459,9 @@
 				DEVELOPMENT_TEAM = HN55VQ5D69;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = PeopleProject/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
