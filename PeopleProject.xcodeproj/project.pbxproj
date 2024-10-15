@@ -34,6 +34,7 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Resources/Symbols.swift,
+				Resources/Theme.swift,
 			);
 			target = 525B874D2CBEEBF500A919EC /* PeopleProjectTests */;
 		};
@@ -41,6 +42,7 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Resources/Symbols.swift,
+				Resources/Theme.swift,
 			);
 			target = 525B87572CBEEBF500A919EC /* PeopleProjectUITests */;
 		};
