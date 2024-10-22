@@ -33,6 +33,12 @@
 		525B87902CBEF84000A919EC /* Exceptions for "PeopleProject" folder in "PeopleProjectTests" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				Base/Mapper/StaticJSONMapper.swift,
+				Base/Models/Model.swift,
+				Features/Details/Models/UserDetailResponse.swift,
+				Features/People/Models/UsersResponse.swift,
+				Resources/JSON/SingleUserData.json,
+				Resources/JSON/UsersStaticData.json,
 				Resources/Symbols.swift,
 				Resources/Theme.swift,
 			);
@@ -41,6 +47,12 @@
 		525B87912CBEF84000A919EC /* Exceptions for "PeopleProject" folder in "PeopleProjectUITests" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				Base/Mapper/StaticJSONMapper.swift,
+				Base/Models/Model.swift,
+				Features/Details/Models/UserDetailResponse.swift,
+				Features/People/Models/UsersResponse.swift,
+				Resources/JSON/SingleUserData.json,
+				Resources/JSON/UsersStaticData.json,
 				Resources/Symbols.swift,
 				Resources/Theme.swift,
 			);
