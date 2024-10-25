@@ -35,9 +35,11 @@
 			membershipExceptions = (
 				Base/Mapper/StaticJSONMapper.swift,
 				Base/Models/Model.swift,
+				Base/Views/PillView.swift,
 				Features/Details/Models/UserDetailResponse.swift,
 				Features/People/Models/UsersResponse.swift,
 				Features/People/Views/PeopleView.swift,
+				Features/People/Views/PersonItemView.swift,
 				Resources/JSON/SingleUserData.json,
 				Resources/JSON/UsersStaticData.json,
 				Resources/Symbols.swift,
@@ -50,9 +52,11 @@
 			membershipExceptions = (
 				Base/Mapper/StaticJSONMapper.swift,
 				Base/Models/Model.swift,
+				Base/Views/PillView.swift,
 				Features/Details/Models/UserDetailResponse.swift,
 				Features/People/Models/UsersResponse.swift,
 				Features/People/Views/PeopleView.swift,
+				Features/People/Views/PersonItemView.swift,
 				Resources/JSON/SingleUserData.json,
 				Resources/JSON/UsersStaticData.json,
 				Resources/Symbols.swift,
