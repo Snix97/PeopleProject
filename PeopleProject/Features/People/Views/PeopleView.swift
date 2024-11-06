@@ -12,15 +12,17 @@ struct PeopleView: View {
     //For CollectionView!
     private let columns = Array(repeating: GridItem(.flexible()), count: 2)
     
+    @State private var users: [User] = []
+    
     var body: some View {
         NavigationView {
             ZStack {
                 backGround
                 ScrollView {
                     LazyVGrid(columns: columns, spacing: 16) {
-                        ForEach(0...5, id: \.self) { item in
+                        ForEach(users, id: \.id) { user in
                             
-                            PersonItemView(user: item)
+                            PersonItemView(user: user)
                         }
                     }
                     .padding()
@@ -31,6 +33,19 @@ struct PeopleView: View {
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
                     createNewUser
+                }
+            }
+            
+            //Get dummy data from embedded JSON files to prototype the Peopleview
+            .onAppear {
+                do {
+                    let res = try StaticJSONMapper.decode(file: "UsersStaticData",
+                                                          type: UsersResponse.self)
+                    
+                    users = res.data
+                } catch {
+                    //TODO: Handle errors
+                    print(error)
                 }
             }
         }
