@@ -8,8 +8,8 @@
 
 // MARK: - UserDetailResponse
 struct UserDetailResponse: Codable {
-    let data: User?
-    let support: Support?
+    let data: User
+    let support: Support
 }
 
 

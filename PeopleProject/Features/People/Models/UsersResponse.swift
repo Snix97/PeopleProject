@@ -7,12 +7,12 @@
 
 // MARK: - UsersResponse
 struct UsersResponse: Codable {
-    let page: Int?
-    let perPage: Int?
-    let total: Int?
-    let totalPages: Int?
-    let data: [User]?
-    let support: Support?
+    let page: Int
+    let perPage: Int
+    let total: Int
+    let totalPages: Int
+    let data: [User]
+    let support: Support
 
 }
 
