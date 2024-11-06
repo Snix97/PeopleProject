@@ -34,7 +34,7 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Base/Mapper/StaticJSONMapper.swift,
-				Base/Models/Model.swift,
+				Base/Model/Models.swift,
 				Base/Views/PillView.swift,
 				Features/Details/Models/UserDetailResponse.swift,
 				Features/People/Models/UsersResponse.swift,
@@ -51,7 +51,7 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Base/Mapper/StaticJSONMapper.swift,
-				Base/Models/Model.swift,
+				Base/Model/Models.swift,
 				Base/Views/PillView.swift,
 				Features/Details/Models/UserDetailResponse.swift,
 				Features/People/Models/UsersResponse.swift,
