@@ -14,6 +14,9 @@ struct PeopleView: View {
     
     @State private var users: [User] = []
     
+    //Defaults to false as dont want it presented automatically when view appears
+    @State private var shouldShowCreatView = false
+    
     var body: some View {
         NavigationView {
             ZStack {
@@ -53,6 +56,11 @@ struct PeopleView: View {
                     print(error)
                 }
             }
+            
+            //Show creatView ontop of current PeopleView
+            .sheet(isPresented: $shouldShowCreatView) {
+                CreateView()
+            }
         }
        
     }
@@ -75,7 +83,7 @@ private extension PeopleView {
     //For ToolBar item
     var createNewUser: some View {
         Button {
-            
+            shouldShowCreatView.toggle()
         } label: {
             Symbols.plus
                 .font(
