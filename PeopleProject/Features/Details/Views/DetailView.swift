@@ -8,6 +8,10 @@
 import SwiftUI
 
 struct DetailView: View {
+    
+    //Optional because when go to this view for the 1st time there won't be any user info, if so we show -
+    @State private var userInfo: UserDetailResponse?
+    
     var body: some View {
         ZStack {
             background
@@ -15,31 +19,41 @@ struct DetailView: View {
             ScrollView {
                 VStack(alignment: .leading, spacing: 18) {
                     
-                    VStack(alignment: .leading, spacing: 8) {
+                    avatar
                         
-                        Group{
-                            //Makes these componets for cleaner/smarter code
-                            generalUserInfo
-                            link
-                        }
-                        .padding(.horizontal, 8)
-                        .padding(.vertical, 18)
-                        .background(Theme.detailBackground, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
-                        
-                        
+                    Group{
+                        //Makes these componets for cleaner/smarter code
+                        generalUserInfo
+                        link
                     }
-                   
+                    .padding(.horizontal, 8)
+                    .padding(.vertical, 18)
+                    .background(Theme.detailBackground, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+               
                 }
                 .padding()
             }
-            
+        }
+        .navigationTitle("Details")
+        //Get dummy data from embedded JSON files to prototype the Detailview
+        .onAppear {
+            do {
+                userInfo = try StaticJSONMapper.decode(file: "SingleUserData",
+                                                      type: UserDetailResponse.self)
+    
+            } catch {
+                //TODO: Handle errors
+                print(error)
+            }
         }
        
     }
 }
 
 #Preview {
-    DetailView()
+    NavigationView {
+         DetailView()
+    }
 }
 
 private extension DetailView {
@@ -50,25 +64,58 @@ private extension DetailView {
             .ignoresSafeArea(edges: .top)
     }
     
+    @ViewBuilder
+    var avatar: some View {
+        if let avatarAbsoluteString = userInfo?.data.avatar,
+           let avatarUrl = URL(string: avatarAbsoluteString) {
+            
+            AsyncImage(url: avatarUrl) { image in
+                image
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(height: 250)
+                    .clipped() // Keep simage in bounds
+                    
+            } placeholder: {
+                ProgressView()
+            }
+            .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+            .shadow(color: Theme.pill, radius: 10, x: 10, y: 0)
+        }
+    }
+    
+    @ViewBuilder
     var link: some View {
-        Link(destination: .init(string: "https://regres.in/#support-heading")!) {
-            VStack(alignment: .leading, spacing: 0 ) {
+        
+        if let supportAbsoluteString = userInfo?.support.url,
+           let supportUrl = URL(string: supportAbsoluteString),
+           let supportTxt = userInfo?.support.text {
+            
+            Link(destination: supportUrl) {
                 
-                Text("Support Regres")
-                    .foregroundColor(Theme.textColor)
-                    .font(
-                        .system(.body, design: .rounded)
-                        .weight(.semibold)
-                    )
-                Text("https://regres.in/#support-heading")
+                VStack(alignment: .leading,
+                       spacing: 8) {
+                    
+                    Text(supportTxt)
+                        .foregroundColor(Theme.textColor)
+                        .font(
+                            .system(.body, design: .rounded)
+                            .weight(.semibold)
+                        )
+                        .multilineTextAlignment(.leading)
+                    
+                    Text(supportAbsoluteString)
+                    
+                }
+                
+                Spacer()
+                
+                Symbols
+                    .link
+                    .font(.system(.title3, design: .rounded))
                 
             }
             
-            Spacer()
-            
-            Symbols
-                .link
-                .font(.system(.title, design: .rounded))
         }
     }
 }
@@ -79,7 +126,7 @@ private extension DetailView {
         VStack(alignment: .leading,
                spacing: 8) {
             
-            PillView(id: 0)
+            PillView(id: userInfo?.data.id ?? 0)
             
             //Using Group enables you to to apply the same modifier in many places all at once, by setting it on the entire group
             Group {
@@ -102,7 +149,7 @@ private extension DetailView {
                 .weight(.semibold)
             )
         
-        Text("<FirstName>")
+        Text(userInfo?.data.firstName ?? "-")
             .font(
                 .system(.subheadline, design: .rounded)
             )
@@ -118,7 +165,7 @@ private extension DetailView {
                 .weight(.semibold)
             )
         
-        Text("<LastName>")
+        Text(userInfo?.data.lastName ?? "-")
             .font(
                 .system(.subheadline, design: .rounded)
             )
@@ -135,7 +182,7 @@ private extension DetailView {
                 .weight(.semibold)
             )
         
-        Text("<Email>")
+        Text(userInfo?.data.email ?? "-")
             .font(
                 .system(.subheadline, design: .rounded)
             )

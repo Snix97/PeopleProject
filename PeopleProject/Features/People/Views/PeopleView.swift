@@ -22,7 +22,12 @@ struct PeopleView: View {
                     LazyVGrid(columns: columns, spacing: 16) {
                         ForEach(users, id: \.id) { user in
                             
-                            PersonItemView(user: user)
+                        //NavigationView is deprecated in iOS 16.0 This is the Pre iOS 16 way
+                           NavigationLink {
+                                DetailView()
+                           } label: {
+                               PersonItemView(user: user)
+                           }
                         }
                     }
                     .padding()
