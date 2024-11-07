@@ -44,16 +44,28 @@ struct PeopleView: View {
                 }
             }
             
-            //Get dummy data from embedded JSON files to prototype the Peopleview
+            
             .onAppear {
-                do {
-                    let res = try StaticJSONMapper.decode(file: "UsersStaticData",
-                                                          type: UsersResponse.self)
-                    
-                    users = res.data
-                } catch {
-                    //TODO: Handle errors
-                    print(error)
+                
+                /*
+                 //Get dummy data from embedded JSON files to prototype the Peopleview
+                 do {
+
+                     let res = try StaticJSONMapper.decode(file: "UsersStaticData",
+                                                           type: UsersResponse.self)
+                     users = res.data
+                 } catch { print(error) }
+                 */
+
+                //Get real API data
+                NetworkingManager.shared.request("https://reqres.in/api/users", type: UsersResponse.self) { res in
+                    switch res {
+                    case .success(let response):
+                        users = response.data
+                        print(users)
+                    case .failure(let error):
+                        print(error)
+                    }
                 }
             }
             
