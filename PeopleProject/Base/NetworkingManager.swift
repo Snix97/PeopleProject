@@ -32,7 +32,7 @@ final class NetworkingManager {
             return
         }
         
-        var request = buildRequest(from: url, methodType: methodType)
+        let request = buildRequest(from: url, methodType: methodType)
         
         let dataTask = URLSession.shared.dataTask(with: request) { data, response, error in
             
@@ -77,7 +77,7 @@ final class NetworkingManager {
             return
         }
         
-        var request = buildRequest(from: url, methodType: methodType)
+        let request = buildRequest(from: url, methodType: methodType)
         
         let dataTask = URLSession.shared.dataTask(with: request) { data, response, error in
             
