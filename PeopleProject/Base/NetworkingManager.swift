@@ -9,7 +9,9 @@ import Foundation
 
 /*
  Singleton - create once, use anywhere avoids repetition of Networking  request logic
- Defined as a class as its a REFERENCE type
+ Defined as a class as its a REFERENCE type.
+ 
+ Request methods are OVERLOADED - same name but dif args to handle either GET or POST
  */
 
 // cannot be overridden or subclassed
@@ -19,15 +21,18 @@ final class NetworkingManager {
     
     private init() {}
     
-    //Pass in URL and using Generics the type we wish to map the response to plus adaptable Error
-    func request<T: Codable>(_ absoluteUrl: String, type: T.Type, completion: @escaping (Result<T, Error>) -> Void)   {
+    //GET request - Pass in URL and using Generics the type we wish to map the response to plus adaptable Error
+    func request<T: Codable>(methodType: MethodType = .GET,
+                             _ absoluteUrl: String,
+                             type: T.Type,
+                             completion: @escaping (Result<T, Error>) -> Void)   {
         
         guard let url = URL(string: absoluteUrl) else {
             completion(.failure(NetworkingError.invalidUrl))
             return
         }
         
-        let request = URLRequest(url: url)
+        var request = buildRequest(from: url, methodType: methodType)
         
         let dataTask = URLSession.shared.dataTask(with: request) { data, response, error in
             
@@ -37,7 +42,6 @@ final class NetworkingManager {
             }
             
             guard let response = response as? HTTPURLResponse,
-                  //!(200...300).contains(response.statusCode)  else {
                   (200...300) ~= response.statusCode else {
                 let statusCode = (response as! HTTPURLResponse).statusCode
                 completion(.failure(NetworkingError.invalidStatusCode(statusCode: statusCode)))
@@ -61,7 +65,38 @@ final class NetworkingManager {
             
         }
         dataTask.resume()
-
+    }
+    
+    //POST request - We're only interested in statusCode of success. Sends back completion with success of void
+    func request(methodType: MethodType = .POST,
+                 _ absoluteUrl: String,
+                 completion: @escaping (Result<Void, Error>) -> Void)   {
+        
+        guard let url = URL(string: absoluteUrl) else {
+            completion(.failure(NetworkingError.invalidUrl))
+            return
+        }
+        
+        var request = buildRequest(from: url, methodType: methodType)
+        
+        let dataTask = URLSession.shared.dataTask(with: request) { data, response, error in
+            
+            if error != nil {
+                completion(.failure(NetworkingError.custom(error: error!)))
+                return
+            }
+            
+            guard let response = response as? HTTPURLResponse,
+                  (200...300) ~= response.statusCode else {
+                let statusCode = (response as! HTTPURLResponse).statusCode
+                completion(.failure(NetworkingError.invalidStatusCode(statusCode: statusCode)))
+                return
+            }
+            
+            completion(.success(()))
+        }
+        dataTask.resume()
+        
     }
     
 }
@@ -74,5 +109,32 @@ extension NetworkingManager {
         case invalidData
         case failedToDecode(error: Error)
     }
-     
+}
+
+//Specify dif method types to pass into request functions
+extension NetworkingManager {
+    enum MethodType: Error {
+        case GET
+        case POST
+        
+    }
+}
+
+//Internal to NetworkingManager to retrieve the request method type
+private extension NetworkingManager {
+ 
+    func buildRequest(from url: URL, methodType: MethodType) -> URLRequest {
+        
+        var request = URLRequest(url: url)
+        
+        switch methodType {
+        case .GET:
+            request.httpMethod = "GET"
+        case .POST:
+            request.httpMethod = "POST"
+        }
+        
+        return request
+        
+    }
 }
