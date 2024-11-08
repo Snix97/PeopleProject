@@ -14,8 +14,6 @@ struct PeopleView: View {
     
     @StateObject private var vm = PeopleViewModel()
     
-   // @State private var users: [User] = []
-    
     //Defaults to false as dont want it presented automatically when view appears
     @State private var shouldShowCreatView = false
     
@@ -28,10 +26,10 @@ struct PeopleView: View {
                         ForEach(vm.users, id: \.id) { user in
                             
                         //NavigationView is deprecated in iOS 16.0 This is the Pre iOS 16 way
-                           NavigationLink {
-                                DetailView()
-                           } label: {
-                               PersonItemView(user: user)
+                            NavigationLink {
+                                DetailView(userId: user.id)
+                            } label: {
+                                PersonItemView(user: user)
                            }
                         }
                     }

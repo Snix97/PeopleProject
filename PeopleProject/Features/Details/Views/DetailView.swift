@@ -9,8 +9,9 @@ import SwiftUI
 
 struct DetailView: View {
     
-    //Optional because when go to this view for the 1st time there won't be any user info, if so we show -
-    @State private var userInfo: UserDetailResponse?
+    let userId: Int
+    
+    @StateObject private var vm = DetailViewModel()
     
     var body: some View {
         ZStack {
@@ -35,24 +36,34 @@ struct DetailView: View {
             }
         }
         .navigationTitle("Details")
-        //Get dummy data from embedded JSON files to prototype the Detailview
+        
         .onAppear {
-            do {
-                userInfo = try StaticJSONMapper.decode(file: "SingleUserData",
-                                                      type: UserDetailResponse.self)
-    
-            } catch {
-                //TODO: Handle errors
-                print(error)
-            }
+            //Get dummy data from embedded JSON files to prototype the Detailview
+//            do {
+//                userInfo = try StaticJSONMapper.decode(file: "SingleUserData",
+//                                                      type: UserDetailResponse.self)
+//    
+//            } catch {
+//                //TODO: Handle errors
+//                print(error)
+//            }
+            
+            //Get real API data from the DetailViewModel
+            vm.fetchDetails(for: userId)
         }
        
     }
 }
 
 #Preview {
+    //Use local JSON to get a userId just to use for the preview
+    var previewUserId: Int {
+        let users = try! StaticJSONMapper.decode(file: "UsersStaticData", type: UsersResponse.self)
+        return users.data.first!.id
+    }
+    
     NavigationView {
-         DetailView()
+        DetailView(userId: previewUserId)
     }
 }
 
@@ -66,7 +77,7 @@ private extension DetailView {
     
     @ViewBuilder
     var avatar: some View {
-        if let avatarAbsoluteString = userInfo?.data.avatar,
+        if let avatarAbsoluteString = vm.userInfo?.data.avatar,
            let avatarUrl = URL(string: avatarAbsoluteString) {
             
             AsyncImage(url: avatarUrl) { image in
@@ -87,9 +98,9 @@ private extension DetailView {
     @ViewBuilder
     var link: some View {
         
-        if let supportAbsoluteString = userInfo?.support.url,
+        if let supportAbsoluteString = vm.userInfo?.support.url,
            let supportUrl = URL(string: supportAbsoluteString),
-           let supportTxt = userInfo?.support.text {
+           let supportTxt = vm.userInfo?.support.text {
             
             Link(destination: supportUrl) {
                 
@@ -126,7 +137,7 @@ private extension DetailView {
         VStack(alignment: .leading,
                spacing: 8) {
             
-            PillView(id: userInfo?.data.id ?? 0)
+            PillView(id: vm.userInfo?.data.id ?? 0)
             
             //Using Group enables you to to apply the same modifier in many places all at once, by setting it on the entire group
             Group {
@@ -149,7 +160,7 @@ private extension DetailView {
                 .weight(.semibold)
             )
         
-        Text(userInfo?.data.firstName ?? "-")
+        Text(vm.userInfo?.data.firstName ?? "-")
             .font(
                 .system(.subheadline, design: .rounded)
             )
@@ -165,7 +176,7 @@ private extension DetailView {
                 .weight(.semibold)
             )
         
-        Text(userInfo?.data.lastName ?? "-")
+        Text(vm.userInfo?.data.lastName ?? "-")
             .font(
                 .system(.subheadline, design: .rounded)
             )
@@ -182,7 +193,7 @@ private extension DetailView {
                 .weight(.semibold)
             )
         
-        Text(userInfo?.data.email ?? "-")
+        Text(vm.userInfo?.data.email ?? "-")
             .font(
                 .system(.subheadline, design: .rounded)
             )
