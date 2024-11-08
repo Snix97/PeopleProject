@@ -12,7 +12,9 @@ struct PeopleView: View {
     //For CollectionView!
     private let columns = Array(repeating: GridItem(.flexible()), count: 2)
     
-    @State private var users: [User] = []
+    @StateObject private var vm = PeopleViewModel()
+    
+   // @State private var users: [User] = []
     
     //Defaults to false as dont want it presented automatically when view appears
     @State private var shouldShowCreatView = false
@@ -23,7 +25,7 @@ struct PeopleView: View {
                 backGround
                 ScrollView {
                     LazyVGrid(columns: columns, spacing: 16) {
-                        ForEach(users, id: \.id) { user in
+                        ForEach(vm.users, id: \.id) { user in
                             
                         //NavigationView is deprecated in iOS 16.0 This is the Pre iOS 16 way
                            NavigationLink {
@@ -57,16 +59,8 @@ struct PeopleView: View {
                  } catch { print(error) }
                  */
 
-                //Get real API data
-                NetworkingManager.shared.request("https://reqres.in/api/users", type: UsersResponse.self) { res in
-                    switch res {
-                    case .success(let response):
-                        users = response.data
-                        print(users)
-                    case .failure(let error):
-                        print(error)
-                    }
-                }
+                //Get real API data from ViewModel
+                vm.fetchUsers()
             }
             
             //Show creatView ontop of current PeopleView
