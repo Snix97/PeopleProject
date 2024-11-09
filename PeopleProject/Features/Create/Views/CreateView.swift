@@ -11,6 +11,7 @@ struct CreateView: View {
     
     //Creates an environment property to read the specified key path.
     @Environment(\.dismiss) private var dismiss
+    @StateObject private var vm = CreateViewModel()
     
     var body: some View {
         NavigationView {
@@ -30,6 +31,16 @@ struct CreateView: View {
                     done
                 }
             }
+            
+            .onChange(of: vm.state) { formState in
+                
+                print("DEBUG:- \(String(describing: vm.state))")
+                
+                // Dismiss after successful post when press submit button
+                if formState == .successful {
+                    dismiss()
+                }
+            }
         }
     }
 }
@@ -43,27 +54,26 @@ private extension CreateView {
     var done: some View {
         Button("Done") {
             //Can dismiss by dragging view down, but give users button action option too
-          dismiss()
+            dismiss()
         }
     }
     
     var firstName: some View {
-        //Not give value to bind too just yet, will do when hook up to viewModel later
-        TextField("First name", text: .constant(""))
+        TextField("First name", text: $vm.person.firstName)
     }
     
     var lastName: some View {
        
-        TextField("Last name", text: .constant(""))
+        TextField("Last name", text: $vm.person.lastName)
     }
     
     var job: some View {
-        TextField("Job", text: .constant(""))
+        TextField("Job", text: $vm.person.job)
     }
     
     var submit: some View {
         Button("Submit") {
-          //TODO: Handle action
+            vm.create()
         }
     }
 }

@@ -68,7 +68,7 @@ final class NetworkingManager {
     }
     
     //POST request - We're only interested in statusCode of success. Sends back completion with success of void
-    func request(methodType: MethodType = .POST,
+    func request(methodType: MethodType = .GET,
                  _ absoluteUrl: String,
                  completion: @escaping (Result<Void, Error>) -> Void)   {
         
@@ -115,7 +115,7 @@ extension NetworkingManager {
 extension NetworkingManager {
     enum MethodType: Error {
         case GET
-        case POST
+        case POST(data: Data?)
         
     }
 }
@@ -130,11 +130,11 @@ private extension NetworkingManager {
         switch methodType {
         case .GET:
             request.httpMethod = "GET"
-        case .POST:
+        case .POST(let data):
             request.httpMethod = "POST"
+            request.httpBody = data
         }
         
         return request
-        
     }
 }
