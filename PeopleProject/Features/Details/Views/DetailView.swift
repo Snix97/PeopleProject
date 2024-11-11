@@ -51,6 +51,9 @@ struct DetailView: View {
             //Get real API data from the DetailViewModel
             vm.fetchDetails(for: userId)
         }
+        //Don't have retry action here we just want an OK to dismiss the alert else we'd get stuck in a retry loop
+        .alert(isPresented: $vm.hasError, error: vm.error) { }
+           
        
     }
 }

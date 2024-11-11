@@ -13,6 +13,10 @@ final class PeopleViewModel: ObservableObject {
    // Views can listen to this property but its not settable
     @Published private(set) var users: [User] = []
     
+    //Handle Errors
+    @Published private(set) var error: NetworkingManager.NetworkingError?
+    @Published var hasError = false
+    
     func fetchUsers() {
         
         //[weak self] due to closure retain cycle
@@ -24,7 +28,8 @@ final class PeopleViewModel: ObservableObject {
                     self?.users = response.data
                     print(self?.users ?? "No user data")
                 case .failure(let error):
-                    print(error)
+                    self?.hasError = true
+                    self?.error = error as? NetworkingManager.NetworkingError
                 }
             }
             

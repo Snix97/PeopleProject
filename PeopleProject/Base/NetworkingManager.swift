@@ -101,8 +101,28 @@ final class NetworkingManager {
     
 }
 
+//Override LocalizedError to get more user friendly decription
+extension NetworkingManager.NetworkingError {
+    
+    var errorDescription: String? {
+        //Provide custom string description
+        switch self {
+        case .invalidUrl:
+            return"URL isn't valid"
+        case .invalidStatusCode:
+            return"Status code falls into the wrong range"
+        case .invalidData:
+            return"Response data is invalid"
+        case .failedToDecode:
+            return"Failed to decode"
+        case .custom(let err):
+             return"Something went wrong \(err.localizedDescription)"
+        }
+    }
+    
+}
 extension NetworkingManager {
-    enum NetworkingError: Error {
+    enum NetworkingError: LocalizedError {
         case invalidUrl
         case custom(error: Error)
         case invalidStatusCode(statusCode: Int)

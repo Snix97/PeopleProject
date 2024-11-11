@@ -13,6 +13,10 @@ final class CreateViewModel: ObservableObject {
     @Published var person = NewPerson()
     @Published private(set) var state: submissionState?
     
+    //Handle Errors
+    @Published private(set) var error: NetworkingManager.NetworkingError?
+    @Published var hasError = false
+    
     func create() {
         
         let endcoder = JSONEncoder()
@@ -30,9 +34,11 @@ final class CreateViewModel: ObservableObject {
                     self?.state = .successful
                 case .failure(let error):
                     self?.state = .unsuccessful
+                    self?.hasError = true
+                    self?.error = error as? NetworkingManager.NetworkingError
                 }
                 
-                print("DEBUG:- \(self?.state)")
+                print("DEBUG:- \(String(describing: self?.state))")
             }
         }
     }
