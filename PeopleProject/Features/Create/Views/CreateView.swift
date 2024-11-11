@@ -25,6 +25,8 @@ struct CreateView: View {
                     submit
                 }
             }
+            //Prevent user interacting with the form after submit is pressed
+            .disabled(vm.state == .submitting)
             .navigationTitle("Create")
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
@@ -42,7 +44,14 @@ struct CreateView: View {
                 }
             }
             //Don't have retry action here we just want an OK to dismiss the alert else we'd get stuck in a retry loop
-            .alert(isPresented: $vm.hasError, error: vm.error) { }
+            .alert(isPresented: $vm.hasError,
+                   error: vm.error) { }
+            .overlay {
+            
+                if vm.state == .submitting {
+                    ProgressView()
+                }
+            }
         }
     }
 }

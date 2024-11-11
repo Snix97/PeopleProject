@@ -16,13 +16,16 @@ final class PeopleViewModel: ObservableObject {
     //Handle Errors
     @Published private(set) var error: NetworkingManager.NetworkingError?
     @Published var hasError = false
+    @Published private(set) var isLoading = false
     
     func fetchUsers() {
+        isLoading = true
         
         //[weak self] due to closure retain cycle
         NetworkingManager.shared.request("https://reqres.in/api/users", type: UsersResponse.self) { [weak self] res in
             
             DispatchQueue.main.async {
+                defer {self?.isLoading = false}
                 switch res {
                 case .success(let response):
                     self?.users = response.data

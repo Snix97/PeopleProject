@@ -16,23 +16,26 @@ struct DetailView: View {
     var body: some View {
         ZStack {
             background
-            
-            ScrollView {
-                VStack(alignment: .leading, spacing: 18) {
-                    
-                    avatar
+            if vm.isLoading {
+                ProgressView()
+            } else {
+                ScrollView {
+                    VStack(alignment: .leading, spacing: 18) {
                         
-                    Group{
-                        //Makes these componets for cleaner/smarter code
-                        generalUserInfo
-                        link
+                        avatar
+                        
+                        Group{
+                            //Makes these componets for cleaner/smarter code
+                            generalUserInfo
+                            link
+                        }
+                        .padding(.horizontal, 8)
+                        .padding(.vertical, 18)
+                        .background(Theme.detailBackground, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+                        
                     }
-                    .padding(.horizontal, 8)
-                    .padding(.vertical, 18)
-                    .background(Theme.detailBackground, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
-               
+                    .padding()
                 }
-                .padding()
             }
         }
         .navigationTitle("Details")

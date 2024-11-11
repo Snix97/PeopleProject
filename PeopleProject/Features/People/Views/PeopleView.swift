@@ -21,19 +21,23 @@ struct PeopleView: View {
         NavigationView {
             ZStack {
                 backGround
-                ScrollView {
-                    LazyVGrid(columns: columns, spacing: 16) {
-                        ForEach(vm.users, id: \.id) { user in
-                            
-                        //NavigationView is deprecated in iOS 16.0 This is the Pre iOS 16 way
-                            NavigationLink {
-                                DetailView(userId: user.id)
-                            } label: {
-                                PersonItemView(user: user)
-                           }
+                if vm.isLoading {
+                    ProgressView()
+                } else {
+                    ScrollView {
+                        LazyVGrid(columns: columns, spacing: 16) {
+                            ForEach(vm.users, id: \.id) { user in
+                                
+                                //NavigationView is deprecated in iOS 16.0 This is the Pre iOS 16 way
+                                NavigationLink {
+                                    DetailView(userId: user.id)
+                                } label: {
+                                    PersonItemView(user: user)
+                                }
+                            }
                         }
+                        .padding()
                     }
-                    .padding()
                 }
             }
             //Title can't be applied onto the actual navView it has to be on one of its children, in this case the ZStack
@@ -100,5 +104,7 @@ private extension PeopleView {
                     .bold()
                 )
         }
+        //Disable access to CreateView when dta is still loading
+        .disabled(vm.isLoading)
     }
 }
