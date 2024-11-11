@@ -17,6 +17,8 @@ struct PeopleView: View {
     //Defaults to false as dont want it presented automatically when view appears
     @State private var shouldShowCreatView = false
     
+    @State private var shouldShowSuccess = false
+    
     var body: some View {
         NavigationView {
             ZStack {
@@ -67,11 +69,32 @@ struct PeopleView: View {
             
             //Show creatView ontop of current PeopleView
             .sheet(isPresented: $shouldShowCreatView) {
-                CreateView()
+                CreateView {
+                    //Implemnet closure that submission was success and show CheckmarkPopoverView with an animation
+                    withAnimation(.spring().delay(0.25)) {
+                        //Set to true
+                        self.shouldShowSuccess.toggle()
+                    }
+                }
             }
             .alert(isPresented: $vm.hasError, error: vm.error) {
                 Button("Retry") {
                     vm.fetchUsers()
+                }
+            }
+            .overlay {
+                if shouldShowSuccess {
+                    CheckmarkPopoverView()
+                    //Add extra to animation to make in shrink and fade
+                        .transition(.scale.combined(with: .opacity))
+                        .onAppear {
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                                withAnimation(spring()) {
+                                    //Set to false
+                                    self.shouldShowSuccess.toggle()
+                                }
+                            }
+                    }
                 }
             }
         }

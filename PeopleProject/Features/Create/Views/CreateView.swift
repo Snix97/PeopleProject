@@ -13,6 +13,8 @@ struct CreateView: View {
     @Environment(\.dismiss) private var dismiss
     @StateObject private var vm = CreateViewModel()
     
+    let successfulAction: () -> Void
+    
     var body: some View {
         NavigationView {
             Form {
@@ -41,6 +43,7 @@ struct CreateView: View {
                 // Dismiss after successful post when press submit button
                 if formState == .successful {
                     dismiss()
+                    successfulAction()
                 }
             }
             //Don't have retry action here we just want an OK to dismiss the alert else we'd get stuck in a retry loop
@@ -57,7 +60,7 @@ struct CreateView: View {
 }
 
 #Preview {
-    CreateView()
+    CreateView {}
 }
 
 private extension CreateView {
