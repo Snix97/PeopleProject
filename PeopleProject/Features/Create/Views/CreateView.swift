@@ -11,6 +11,9 @@ struct CreateView: View {
     
     //Creates an environment property to read the specified key path.
     @Environment(\.dismiss) private var dismiss
+    
+    //Property wrapper for tracking which view currently receives user input. Bound to Field enum to control movement between several input fields
+    @FocusState private var focusedField: Field?
     @StateObject private var vm = CreateViewModel()
     
     let successfulAction: () -> Void
@@ -19,10 +22,19 @@ struct CreateView: View {
         NavigationView {
             Form {
                 
-                firstName
-                lastName
-                job
-                
+                //Add section to get footer to show the exact form field validation error
+                Section {
+                    firstName
+                    lastName
+                    job
+                } footer: {
+                    if case .validationError(let err) = vm.error,
+                         let errorDesc = err.errorDescription {
+                          Text(errorDesc)
+                              .foregroundStyle(.red)
+                      }
+                }
+
                 Section {
                     submit
                 }
@@ -63,6 +75,14 @@ struct CreateView: View {
     CreateView {}
 }
 
+extension CreateView {
+    enum Field: Hashable {
+        case firstName
+        case lastName
+        case job
+    }
+}
+
 private extension CreateView {
     
     var done: some View {
@@ -74,19 +94,24 @@ private extension CreateView {
     
     var firstName: some View {
         TextField("First name", text: $vm.person.firstName)
+            .focused($focusedField, equals: .firstName)
+           
     }
     
     var lastName: some View {
        
         TextField("Last name", text: $vm.person.lastName)
+            .focused($focusedField, equals: .firstName)
     }
     
     var job: some View {
         TextField("Job", text: $vm.person.job)
+            .focused($focusedField, equals: .firstName)
     }
     
     var submit: some View {
         Button("Submit") {
+            focusedField = nil //resign focused fields
             vm.create()
         }
     }

@@ -89,7 +89,7 @@ struct PeopleView: View {
                         .transition(.scale.combined(with: .opacity))
                         .onAppear {
                             DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-                                withAnimation(spring()) {
+                                withAnimation(.spring()) {
                                     //Set to false
                                     self.shouldShowSuccess.toggle()
                                 }
