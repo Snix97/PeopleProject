@@ -70,6 +70,8 @@ struct PeopleView: View {
             //Show creatView ontop of current PeopleView
             .sheet(isPresented: $shouldShowCreatView) {
                 CreateView {
+                    //Call haptic function - vibrates on successful create
+                    haptic(.success)
                     //Implemnet closure that submission was success and show CheckmarkPopoverView with an animation
                     withAnimation(.spring().delay(0.25)) {
                         //Set to true

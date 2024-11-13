@@ -33,8 +33,10 @@
 		525B87902CBEF84000A919EC /* Exceptions for "PeopleProject" folder in "PeopleProjectTests" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				Base/Haptics/HapticsManager.swift,
 				Base/Mapper/StaticJSONMapper.swift,
 				Base/Model/Models.swift,
+				Base/UserDefaults/UserDefaultKey.swift,
 				Base/Views/CheckmarkPopoverView.swift,
 				Base/Views/PillView.swift,
 				Features/Create/Models/NewPerson.swift,
@@ -47,6 +49,7 @@
 				Features/People/ViewModels/PeopleViewModel.swift,
 				Features/People/Views/PeopleView.swift,
 				Features/People/Views/PersonItemView.swift,
+				Features/Settings/Views/SettingsView.swift,
 				Resources/JSON/SingleUserData.json,
 				Resources/JSON/UsersStaticData.json,
 				Resources/Symbols.swift,
@@ -57,8 +60,10 @@
 		525B87912CBEF84000A919EC /* Exceptions for "PeopleProject" folder in "PeopleProjectUITests" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				Base/Haptics/HapticsManager.swift,
 				Base/Mapper/StaticJSONMapper.swift,
 				Base/Model/Models.swift,
+				Base/UserDefaults/UserDefaultKey.swift,
 				Base/Views/CheckmarkPopoverView.swift,
 				Base/Views/PillView.swift,
 				Features/Create/Models/NewPerson.swift,
@@ -71,6 +76,7 @@
 				Features/People/ViewModels/PeopleViewModel.swift,
 				Features/People/Views/PeopleView.swift,
 				Features/People/Views/PersonItemView.swift,
+				Features/Settings/Views/SettingsView.swift,
 				Resources/JSON/SingleUserData.json,
 				Resources/JSON/UsersStaticData.json,
 				Resources/Symbols.swift,
