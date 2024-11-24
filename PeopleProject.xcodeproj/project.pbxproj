@@ -33,6 +33,7 @@
 		525B87902CBEF84000A919EC /* Exceptions for "PeopleProject" folder in "PeopleProjectTests" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				Base/API/Endpoint/Endpoint.swift,
 				Base/Haptics/HapticsManager.swift,
 				Base/Mapper/StaticJSONMapper.swift,
 				Base/Model/Models.swift,
@@ -60,6 +61,7 @@
 		525B87912CBEF84000A919EC /* Exceptions for "PeopleProject" folder in "PeopleProjectUITests" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				Base/API/Endpoint/Endpoint.swift,
 				Base/Haptics/HapticsManager.swift,
 				Base/Mapper/StaticJSONMapper.swift,
 				Base/Model/Models.swift,

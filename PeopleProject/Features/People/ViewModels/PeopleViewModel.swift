@@ -22,7 +22,7 @@ final class PeopleViewModel: ObservableObject {
         isLoading = true
         
         //[weak self] due to closure retain cycle
-        NetworkingManager.shared.request("https://reqres.in/api/users", type: UsersResponse.self) { [weak self] res in
+        NetworkingManager.shared.request(.people, type: UsersResponse.self) { [weak self] res in
             
             DispatchQueue.main.async {
                 defer {self?.isLoading = false}
